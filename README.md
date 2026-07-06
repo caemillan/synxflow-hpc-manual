@@ -2,7 +2,7 @@
 
 Manual de referencia para la simulación hidrodinámica de amenazas naturales en HPC con SynxFlow (español / English), publicado con MkDocs Material.
 
-Elaborado por Carlos Millán-Arancibia (SENAMHI, Perú) y Xilin Xia (Universidad de Birmingham, Reino Unido), como parte del desarrollo del Sistema de Alerta Temprana (SAT) para la cuenca media-baja del río Rímac.
+Elaborado por Carlos Millán-Arancibia (SENAMHI, Perú) como parte del desarrollo del Sistema de Pronóstico de Activación de Quebradas para la Gestión del Riesgo en la cuenca media-baja del río Rímac (ARGO-Rímac).
 
 ## Desarrollo local
 

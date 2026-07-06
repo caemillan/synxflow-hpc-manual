@@ -1,0 +1,73 @@
+site_name: Manual de Referencia SynxFlow HPC
+site_description: Manual de referencia para la simulación hidrodinámica de amenazas naturales en HPC con SynxFlow
+site_author: Carlos Millán-Arancibia, Xilin Xia
+site_url: https://caemillan.github.io/synxflow-hpc-manual/
+repo_url: https://github.com/caemillan/synxflow-hpc-manual
+edit_uri: ""
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+    - content.code.copy
+    - search.suggest
+  icon:
+    logo: material/waves
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      languages:
+        - locale: es
+          default: true
+          name: Español
+          build: true
+        - locale: en
+          name: English
+          build: true
+          nav_translations:
+            Introducción: Introduction
+            "Cap. 1 — SynxFlow": "Ch. 1 — SynxFlow"
+            "Cap. 2 — Configuración HPC": "Ch. 2 — HPC Configuration"
+            "Cap. 3 — Flujo de detritos": "Ch. 3 — Debris Flow"
+            "Cap. 4 — Infiltración Green-Ampt": "Ch. 4 — Green-Ampt Infiltration"
+            Referencias: References
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - tables
+  - toc:
+      permalink: true
+  - footnotes
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Introducción: index.md
+  - "Cap. 1 — SynxFlow": cap1_synxflow.md
+  - "Cap. 2 — Configuración HPC": cap2_configuracion_hpc.md
+  - "Cap. 3 — Flujo de detritos": cap3_flujo_detritos.md
+  - "Cap. 4 — Infiltración Green-Ampt": cap4_green_ampt.md
+  - Referencias: referencias.md

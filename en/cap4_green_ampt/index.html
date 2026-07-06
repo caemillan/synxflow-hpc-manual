@@ -1,0 +1,1130 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Manual de referencia para la simulación hidrodinámica de amenazas naturales en HPC con SynxFlow">
+      
+      
+        <meta name="author" content="Carlos Millán-Arancibia, Xilin Xia">
+      
+      
+        <link rel="canonical" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap4_green_ampt/">
+      
+      
+        <link rel="prev" href="../cap3_flujo_detritos/">
+      
+      
+        <link rel="next" href="../referencias/">
+      
+      
+        
+          <link rel="alternate" href="../../cap4_green_ampt/" hreflang="es">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Ch. 4 — Green-Ampt Infiltration - Manual de Referencia SynxFlow HPC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#green-ampt-infiltration-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Manual de Referencia SynxFlow HPC" class="md-header__button md-logo" aria-label="Manual de Referencia SynxFlow HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33m0-6h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2V6h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0C17.22 5.53 18.61 6 20 6m0 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual de Referencia SynxFlow HPC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch. 4 — Green-Ampt Infiltration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../cap4_green_ampt/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/caemillan/synxflow-hpc-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cap1_synxflow/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Ch. 1 — SynxFlow
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cap2_configuracion_hpc/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Ch. 2 — HPC Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cap3_flujo_detritos/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Ch. 3 — Debris Flow
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Ch. 4 — Green-Ampt Infiltration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../referencias/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  References
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Manual de Referencia SynxFlow HPC" class="md-nav__button md-logo" aria-label="Manual de Referencia SynxFlow HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33m0-6h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2V6h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0C17.22 5.53 18.61 6 20 6m0 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33"/></svg>
+
+    </a>
+    Manual de Referencia SynxFlow HPC
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/caemillan/synxflow-hpc-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cap1_synxflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch. 1 — SynxFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cap2_configuracion_hpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch. 2 — HPC Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cap3_flujo_detritos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch. 3 — Debris Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch. 4 — Green-Ampt Infiltration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch. 4 — Green-Ampt Infiltration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#theoretical-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theoretical background
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpu-implementation-cuda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU implementation (CUDA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GPU implementation (CUDA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CUDA kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-by-land-cover-class-rawls-et-al-1983" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters by land cover class (Rawls et al., 1983)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations-for-semi-arid-andean-watersheds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considerations for semi-arid Andean watersheds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Considerations for semi-arid Andean watersheds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#surface-sealing-rain-crust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Surface sealing (rain crust)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hydrophobicity-in-dry-soils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hydrophobicity in dry soils
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thin-soils-over-rock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thin soils over rock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-reduction-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended reduction factors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-variable-cumulative_depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State variable cumulative_depth
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State variable cumulative_depth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialisation-with-antecedent-moisture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialisation with antecedent moisture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cumulative_depth-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cumulative_depth outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameter-assignment-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter assignment in Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../referencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="green-ampt-infiltration-module">Green-Ampt Infiltration Module<a class="headerlink" href="#green-ampt-infiltration-module" title="Permanent link">&para;</a></h1>
+<h2 id="theoretical-background">Theoretical background<a class="headerlink" href="#theoretical-background" title="Permanent link">&para;</a></h2>
+<p>SynxFlow's infiltration module is based on the Green-Ampt (1911) model, an analytical solution derived from Darcy's law for a piston-type wetting front. The model assumes that the soil above the front is completely saturated and the soil below maintains its initial moisture content.</p>
+<p>The instantaneous infiltration rate <span class="arithmatex">\(f(t)\)</span> [m/s] is expressed as:</p>
+<div class="arithmatex">\[f(t) = K_s \left(1 + \frac{\psi \cdot \Delta\theta}{F(t)}\right)\]</div>
+<p>Where:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>SynxFlow parameter</th>
+<th>Description</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(K_s\)</span></td>
+<td><code>hydraulic_conductivity</code></td>
+<td>Effective saturated hydraulic conductivity</td>
+<td>m/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\psi\)</span></td>
+<td><code>capillary_head</code></td>
+<td>Average capillary suction at the wetting front</td>
+<td>m</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Delta\theta = \theta_s - \theta_i\)</span></td>
+<td><code>water_content_diff</code></td>
+<td>Moisture deficit (fillable porosity)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(F(t)\)</span></td>
+<td><code>cumulative_depth</code></td>
+<td>Cumulative infiltration</td>
+<td>m</td>
+</tr>
+</tbody>
+</table>
+<p>As <span class="arithmatex">\(F(t)\)</span> grows, the infiltration rate decreases asymptotically toward <span class="arithmatex">\(K_s\)</span>. In the long term (saturated soil), all infiltration capacity is given by <span class="arithmatex">\(K_s\)</span>.</p>
+<h2 id="gpu-implementation-cuda">GPU implementation (CUDA)<a class="headerlink" href="#gpu-implementation-cuda" title="Permanent link">&para;</a></h2>
+<p>In SynxFlow, infiltration is calculated at each active cell of the domain and at each time step of the solver. The analytical solution for a time step <span class="arithmatex">\(\Delta t\)</span> is obtained by implicitly solving the ODE <span class="arithmatex">\(dF/dt = f(F)\)</span>:</p>
+<div class="arithmatex">\[F_1 = \frac{1}{2}\left[(F_0 + K_s \Delta t) + \sqrt{(F_0 + K_s \Delta t)^2 + 4\,K_s\,\Delta t\,(\psi + h)\,\Delta\theta}\right]\]</div>
+<p>Where <span class="arithmatex">\(F_0\)</span> is the cumulative infiltration at the start of the step, <span class="arithmatex">\(h\)</span> is the available water depth, and <span class="arithmatex">\(F_1\)</span> is the cumulative infiltration at the end of the step.</p>
+<p>The effective infiltration increment in step <span class="arithmatex">\(\Delta t\)</span> is limited by the available water depth:</p>
+<div class="arithmatex">\[\Delta F = \min(h,\ F_1 - F_0)\]</div>
+<p>The solver updates each cell:</p>
+<div class="highlight"><pre><span></span><code>cumulative_depth += ΔF
+h               -= ΔF
+</code></pre></div>
+<p>This formulation ensures that a cell does not infiltrate more water than it contains, preventing negative depths.</p>
+<h3 id="cuda-kernel">CUDA kernel<a class="headerlink" href="#cuda-kernel" title="Permanent link">&para;</a></h3>
+<p>The GPU kernel implementing this logic operates over all active cells in parallel:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// cuda_infiltration.cu — kernel cuInfiltrationGreenAmptKernel</span>
+<span class="n">Scalar</span><span class="w"> </span><span class="n">F_0</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">cumulative_depth</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+<span class="n">Scalar</span><span class="w"> </span><span class="n">total_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capillary_head</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">h</span><span class="p">;</span><span class="w">          </span><span class="c1">// psi + h</span>
+<span class="n">Scalar</span><span class="w"> </span><span class="n">disc</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">F_0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">K_s</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
+<span class="n">Scalar</span><span class="w"> </span><span class="n">F_1</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">disc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">disc</span><span class="o">*</span><span class="n">disc</span>
+<span class="w">                    </span><span class="o">+</span><span class="w"> </span><span class="mf">4.0</span><span class="o">*</span><span class="n">K_s</span><span class="o">*</span><span class="n">dt</span><span class="o">*</span><span class="n">total_head</span><span class="o">*</span><span class="n">delta_theta</span><span class="p">));</span>
+<span class="n">Scalar</span><span class="w"> </span><span class="n">delta_F</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">fmin</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">F_1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">F_0</span><span class="p">);</span>
+
+<span class="n">cumulative_depth</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">delta_F</span><span class="p">;</span>
+<span class="n">h</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w">                </span><span class="o">-=</span><span class="w"> </span><span class="n">delta_F</span><span class="p">;</span>
+</code></pre></div>
+<p>The kernel is invoked from the debris module after each temporal integration of the SWE.</p>
+<h2 id="parameters-by-land-cover-class-rawls-et-al-1983">Parameters by land cover class (Rawls et al., 1983)<a class="headerlink" href="#parameters-by-land-cover-class-rawls-et-al-1983" title="Permanent link">&para;</a></h2>
+<p>Green-Ampt parameters are assigned spatially according to the ESA WorldCover land cover classification (10 m), resampled to the simulation DEM. Reference values come from Rawls et al. (1983), Table 4.5.2, obtained for soils from temperate zones in the USA.</p>
+<table>
+<thead>
+<tr>
+<th>ESA class</th>
+<th>Land cover</th>
+<th>Soil type</th>
+<th><span class="arithmatex">\(K_s\)</span> [mm/h]</th>
+<th><span class="arithmatex">\(\psi\)</span> [cm]</th>
+<th><span class="arithmatex">\(\Delta\theta\)</span> [-]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Tree cover</td>
+<td>Silt loam</td>
+<td>6.48</td>
+<td>16.68</td>
+<td>0.486</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Shrubland</td>
+<td>Sandy loam</td>
+<td>10.92</td>
+<td>11.01</td>
+<td>0.412</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Grassland</td>
+<td>Loam</td>
+<td>3.38</td>
+<td>8.89</td>
+<td>0.434</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Cropland</td>
+<td>Loam</td>
+<td>3.38</td>
+<td>8.89</td>
+<td>0.434</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Built-up</td>
+<td>Impervious</td>
+<td>0.036</td>
+<td>5.00</td>
+<td>0.050</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Bare/sparse</td>
+<td>Loamy sand</td>
+<td>29.97</td>
+<td>6.13</td>
+<td>0.401</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Water bodies</td>
+<td>Saturated</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>90</td>
+<td>Wetland</td>
+<td>Clay</td>
+<td>1.08</td>
+<td>31.63</td>
+<td>0.385</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> Values in model units (m/s and m) are obtained as:
+<span class="arithmatex">\(K_s\ [\text{m/s}] = K_s\ [\text{mm/h}] \times 2.778 \times 10^{-7}\)</span>
+<span class="arithmatex">\(\psi\ [\text{m}] = \psi\ [\text{cm}] \times 0.01\)</span></p>
+</blockquote>
+<h2 id="considerations-for-semi-arid-andean-watersheds">Considerations for semi-arid Andean watersheds<a class="headerlink" href="#considerations-for-semi-arid-andean-watersheds" title="Permanent link">&para;</a></h2>
+<p>The Rawls et al. (1983) values were obtained from agricultural soils in temperate zones with complete soil profiles. In semi-arid Andean watersheds (e.g., upper Rímac catchment, Chosica), reduction factors are applied for the following physical reasons:</p>
+<h3 id="surface-sealing-rain-crust">Surface sealing (<em>rain crust</em>)<a class="headerlink" href="#surface-sealing-rain-crust" title="Permanent link">&para;</a></h3>
+<p>The kinetic impact of raindrops breaks up soil aggregates, compacts the surface, and blocks macroscopic pores (<em>structural sealing</em>). In soils with fine-grained material (silt, volcanic ash, colluvial material), particles migrate inward and seal the surface pores (<em>depositional sealing</em>). Both processes reduce surface <span class="arithmatex">\(K_s\)</span> by one to two orders of magnitude relative to laboratory values (Assouline, 2004).</p>
+<p>Rain crust formation has direct consequences for flow generation:</p>
+<ul>
+<li><strong>Rapid runoff generation</strong>: by suppressing infiltration within the first minutes of the event, the seal partitions rainfall directly to overland flow, reducing the precipitation depth needed to generate runoff (Assouline, 2004).</li>
+<li><strong>Increased peak discharge</strong>: the crust acts as a near-impermeable surface, raising the runoff coefficient and the probability of initiating hyperconcentrated and debris flows (Thouret et al., 2020, <em>Earth-Sci. Rev.</em> 201:103003).</li>
+<li><strong>Hardened crusts from previous deposits</strong>: in gullies with recurrent events, deposits from earlier flows form cemented crusts that suppress bed infiltration, facilitating avulsion into secondary channels (Thouret et al., 2020).</li>
+</ul>
+<p>This process is particularly relevant for class 60 soils (bare soil / rock) at the onset of the Yaku 2023 event, when the soil was in a dry condition prior to the onset of rainfall.</p>
+<h3 id="hydrophobicity-in-dry-soils">Hydrophobicity in dry soils<a class="headerlink" href="#hydrophobicity-in-dry-soils" title="Permanent link">&para;</a></h3>
+<p>Soils in semi-arid zones exhibit water repellence (hydrophobicity) when dry, reducing effective infiltration during the first hours of rainfall. Repellence decreases as the soil wets (thresholds reported by Doerr et al., 2000). In volcanic environments and Andean gullies with perennial vegetation, hydrophobicity explains the high frequency of lahars and debris flows during low-intensity rainfall at the onset of the wet season, when dry soil repels water and generates immediate surface runoff (Capra et al., 2010, <em>J. Volcanol. Geotherm. Res.</em> 189:105–117).</p>
+<h3 id="thin-soils-over-rock">Thin soils over rock<a class="headerlink" href="#thin-soils-over-rock" title="Permanent link">&para;</a></h3>
+<p>In the upper Rímac catchment (above 2000 m.a.s.l.), class 60 covers more than 60% of the area and corresponds to thin soils (&lt;20 cm) over granitic or metamorphic rock. Effective infiltration is limited by the storage capacity of the soil profile, not by <span class="arithmatex">\(K_s\)</span>.</p>
+<h3 id="recommended-reduction-factors">Recommended reduction factors<a class="headerlink" href="#recommended-reduction-factors" title="Permanent link">&para;</a></h3>
+<p>For the Rímac watershed (Yaku 2023 event), the OAT (<em>One-At-a-Time</em>: one parameter is varied at a time while all others are held fixed) sensitivity analysis on <span class="arithmatex">\(K_s\)</span> for class 60 suggests:</p>
+<table>
+<thead>
+<tr>
+<th>Multiplier</th>
+<th><span class="arithmatex">\(K_s\)</span> class 60 [mm/h]</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>×1.00 (Rawls)</td>
+<td>29.97</td>
+<td>Undisturbed soil, reference</td>
+</tr>
+<tr>
+<td>×0.50</td>
+<td>14.94</td>
+<td>Soil with moderate surface sealing</td>
+</tr>
+<tr>
+<td>×0.18</td>
+<td>5.39</td>
+<td>Rocky Andean soil, severe crust</td>
+</tr>
+<tr>
+<td>×0.10</td>
+<td>2.99</td>
+<td>Extreme surface sealing / outcropping rock</td>
+</tr>
+<tr>
+<td>×0.05</td>
+<td>1.49</td>
+<td>Rock cover &gt;80%</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The sensitivity of the hydrometric response to the <span class="arithmatex">\(K_s\)</span> class 60 multiplier is low in the main Rímac channel (~4% variation in <span class="arithmatex">\(h_{max}\)</span>), indicating that the upstream boundary condition dominates over infiltration in the lower reach of the catchment.</p>
+</blockquote>
+<h2 id="state-variable-cumulative_depth">State variable <code>cumulative_depth</code><a class="headerlink" href="#state-variable-cumulative_depth" title="Permanent link">&para;</a></h2>
+<p><code>cumulative_depth</code> (<span class="arithmatex">\(F\)</span>) represents the cumulative infiltration since the start of the simulation [m]. It is a <strong>state variable</strong> with physical meaning:</p>
+<ul>
+<li><span class="arithmatex">\(F = 0\)</span>: completely dry soil (standard initial condition).</li>
+<li><span class="arithmatex">\(F &gt; 0\)</span>: soil with antecedent moisture. The initial infiltration rate is lower than with <span class="arithmatex">\(F=0\)</span>.</li>
+<li><span class="arithmatex">\(F \to \infty\)</span>: saturated soil; <span class="arithmatex">\(f \to K_s\)</span> (steady state).</li>
+</ul>
+<h3 id="initialisation-with-antecedent-moisture">Initialisation with antecedent moisture<a class="headerlink" href="#initialisation-with-antecedent-moisture" title="Permanent link">&para;</a></h3>
+<p>For events preceded by prior rainfall, the initial condition <span class="arithmatex">\(F=0\)</span> underestimates antecedent moisture and overestimates infiltration capacity. In the case of Yaku 2023, the soil was in a relatively dry condition before the onset of rainfall, so <span class="arithmatex">\(F=0\)</span> is a reasonable approximation for that event. This value should be adjusted when records or estimates of significant antecedent rainfall are available:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Dry soil (default)</span>
+<span class="n">case_input</span><span class="o">.</span><span class="n">set_grid_parameter</span><span class="p">(</span><span class="n">cumulative_depth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1"># Pre-wet soil (equivalent to estimated antecedent F)</span>
+<span class="n">F_antecedente</span> <span class="o">=</span> <span class="mf">0.02</span>  <span class="c1"># m, equivalent to ~20 mm of prior rainfall</span>
+<span class="n">case_input</span><span class="o">.</span><span class="n">set_grid_parameter</span><span class="p">(</span><span class="n">cumulative_depth</span><span class="o">=</span><span class="n">F_antecedente</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="cumulative_depth-outputs"><code>cumulative_depth</code> outputs<a class="headerlink" href="#cumulative_depth-outputs" title="Permanent link">&para;</a></h3>
+<p>SynxFlow writes <code>cumulative_depth</code> as:
+- Periodic raster: <code>cumulative_depth_{t}.asc</code> (every output interval).
+- Backup file: <code>cumulative_depth_backup_{t}.dat</code> (every backup interval).</p>
+<p>This allows cascaded simulations to be resumed and the spatial distribution of cumulative infiltration at the end of the event to be analysed.</p>
+<h2 id="parameter-assignment-in-python">Parameter assignment in Python<a class="headerlink" href="#parameter-assignment-in-python" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Green-Ampt parameters by ESA class (in model units)</span>
+<span class="n">K_sat</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="mf">1.8e-6</span><span class="p">,</span>   <span class="c1"># Tree cover    — 6.48 mm/h</span>
+    <span class="mi">20</span><span class="p">:</span> <span class="mf">3.0e-6</span><span class="p">,</span>   <span class="c1"># Shrubland     — 10.92 mm/h</span>
+    <span class="mi">30</span><span class="p">:</span> <span class="mf">9.4e-7</span><span class="p">,</span>   <span class="c1"># Grassland     — 3.38 mm/h</span>
+    <span class="mi">40</span><span class="p">:</span> <span class="mf">9.4e-7</span><span class="p">,</span>   <span class="c1"># Cropland      — 3.38 mm/h</span>
+    <span class="mi">50</span><span class="p">:</span> <span class="mf">1.0e-8</span><span class="p">,</span>   <span class="c1"># Built-up      — impervious</span>
+    <span class="mi">60</span><span class="p">:</span> <span class="mf">8.3e-6</span><span class="p">,</span>   <span class="c1"># Bare/sparse   — 29.97 mm/h (Rawls)</span>
+    <span class="mi">80</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>      <span class="c1"># Water bodies  — saturated</span>
+    <span class="mi">90</span><span class="p">:</span> <span class="mf">3.0e-7</span><span class="p">,</span>   <span class="c1"># Wetland       — 1.08 mm/h</span>
+<span class="p">}</span>
+
+<span class="n">psi</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="mf">0.167</span><span class="p">,</span> <span class="mi">20</span><span class="p">:</span> <span class="mf">0.110</span><span class="p">,</span> <span class="mi">30</span><span class="p">:</span> <span class="mf">0.089</span><span class="p">,</span> <span class="mi">40</span><span class="p">:</span> <span class="mf">0.089</span><span class="p">,</span>
+    <span class="mi">50</span><span class="p">:</span> <span class="mf">0.050</span><span class="p">,</span> <span class="mi">60</span><span class="p">:</span> <span class="mf">0.061</span><span class="p">,</span> <span class="mi">80</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>   <span class="mi">90</span><span class="p">:</span> <span class="mf">0.316</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">delta_theta</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="mf">0.486</span><span class="p">,</span> <span class="mi">20</span><span class="p">:</span> <span class="mf">0.412</span><span class="p">,</span> <span class="mi">30</span><span class="p">:</span> <span class="mf">0.434</span><span class="p">,</span> <span class="mi">40</span><span class="p">:</span> <span class="mf">0.434</span><span class="p">,</span>
+    <span class="mi">50</span><span class="p">:</span> <span class="mf">0.050</span><span class="p">,</span> <span class="mi">60</span><span class="p">:</span> <span class="mf">0.401</span><span class="p">,</span> <span class="mi">80</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>   <span class="mi">90</span><span class="p">:</span> <span class="mf">0.385</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">K_array</span>      <span class="o">=</span> <span class="n">make_grid</span><span class="p">(</span><span class="n">K_sat</span><span class="p">)</span>
+<span class="n">psi_array</span>    <span class="o">=</span> <span class="n">make_grid</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span>
+<span class="n">dtheta_array</span> <span class="o">=</span> <span class="n">make_grid</span><span class="p">(</span><span class="n">delta_theta</span><span class="p">)</span>
+
+<span class="n">case_input</span><span class="o">.</span><span class="n">set_grid_parameter</span><span class="p">(</span><span class="n">hydraulic_conductivity</span><span class="o">=</span><span class="n">K_array</span><span class="p">)</span>
+<span class="n">case_input</span><span class="o">.</span><span class="n">set_grid_parameter</span><span class="p">(</span><span class="n">capillary_head</span><span class="o">=</span><span class="n">psi_array</span><span class="p">)</span>
+<span class="n">case_input</span><span class="o">.</span><span class="n">set_grid_parameter</span><span class="p">(</span><span class="n">water_content_diff</span><span class="o">=</span><span class="n">dtheta_array</span><span class="p">)</span>
+<span class="n">case_input</span><span class="o">.</span><span class="n">set_grid_parameter</span><span class="p">(</span><span class="n">cumulative_depth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># dry soil</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.integrate", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

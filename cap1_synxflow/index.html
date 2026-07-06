@@ -1,0 +1,1156 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Manual de referencia para la simulación hidrodinámica de amenazas naturales en HPC con SynxFlow">
+      
+      
+        <meta name="author" content="Carlos Millán-Arancibia, Xilin Xia">
+      
+      
+        <link rel="canonical" href="https://caemillan.github.io/synxflow-hpc-manual/cap1_synxflow/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../cap2_configuracion_hpc/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../en/cap1_synxflow/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Cap. 1 — SynxFlow - Manual de Referencia SynxFlow HPC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#synxflow" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="Manual de Referencia SynxFlow HPC" class="md-header__button md-logo" aria-label="Manual de Referencia SynxFlow HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33m0-6h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2V6h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0C17.22 5.53 18.61 6 20 6m0 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual de Referencia SynxFlow HPC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cap. 1 — SynxFlow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../en/cap1_synxflow/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/caemillan/synxflow-hpc-manual" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Introducción
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Cap. 1 — SynxFlow
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cap2_configuracion_hpc/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Cap. 2 — Configuración HPC
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cap3_flujo_detritos/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Cap. 3 — Flujo de detritos
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cap4_green_ampt/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Cap. 4 — Infiltración Green-Ampt
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../referencias/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Referencias
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Manual de Referencia SynxFlow HPC" class="md-nav__button md-logo" aria-label="Manual de Referencia SynxFlow HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33m0-6h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2V6h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0C17.22 5.53 18.61 6 20 6m0 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33"/></svg>
+
+    </a>
+    Manual de Referencia SynxFlow HPC
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/caemillan/synxflow-hpc-manual" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cap. 1 — SynxFlow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cap. 1 — SynxFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descripcion-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descripción del modelo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Descripción del modelo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecuaciones-de-gobierno-swe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ecuaciones de gobierno (SWE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coeficiente-de-rugosidad-de-manning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coeficiente de rugosidad de Manning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metodologia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metodología
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metodología">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enfoque-de-modelamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enfoque de modelamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dominio-del-modelo-y-mallado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dominio del modelo y mallado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrizacion-de-los-modelos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametrización de los modelos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-aplicacion-evento-yaku-2023-cuenca-del-rio-rimac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caso de aplicación: evento Yaku 2023 — cuenca del río Rímac
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensibilidad-parametrica-del-modulo-green-ampt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensibilidad paramétrica del módulo Green-Ampt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#glosario-de-terminos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario de términos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cap2_configuracion_hpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cap. 2 — Configuración HPC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cap3_flujo_detritos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cap. 3 — Flujo de detritos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cap4_green_ampt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cap. 4 — Infiltración Green-Ampt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../referencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="synxflow">SynxFlow<a class="headerlink" href="#synxflow" title="Permanent link">&para;</a></h1>
+<h2 id="descripcion-del-modelo">Descripción del modelo<a class="headerlink" href="#descripcion-del-modelo" title="Permanent link">&para;</a></h2>
+<p>SynxFlow (<em>Synergising High-Performance Hazard Simulation with Data Flow</em>) es un modelo de código abierto capaz de simular dinámicamente inundaciones, deslizamientos de tierra y flujos de detritos mediante GPU compatibles con CUDA. Cuenta con una interfaz Python intuitiva y versátil, y se integra a la perfección con herramientas como NumPy, Pandas y GDAL para un procesamiento eficiente de los datos de entrada, la ejecución de la simulación y la visualización de los resultados. Gracias a la aceleración de las GPU modernas, SynxFlow puede completar simulaciones a gran escala en cuestión de minutos, lo que lo convierte en una solución ideal para integrarse en flujos de trabajo de ciencia de datos y optimizar y acelerar la evaluación de riesgos de desastres naturales, potenciando tanto la investigación como las aplicaciones empresariales (Repositorio de SynxFlow, 2025).</p>
+<p>Los autores de SynxFlow cuentan con amplia experiencia en el desarrollo y la aplicación de modelos hidrodinámicos. Los algoritmos empleados en el modelo son altamente eficientes y robustos, y utilizan métodos de captura de choques tipo Godunov para resolver ecuaciones en aguas poco profundas (SWE: <em>Shallow Water Equations</em>). Los métodos numéricos del modelo se documentan en los artículos de Xia et al. (2017, 2023) y Xia &amp; Liang (2018).</p>
+<h3 id="ecuaciones-de-gobierno-swe">Ecuaciones de gobierno (SWE)<a class="headerlink" href="#ecuaciones-de-gobierno-swe" title="Permanent link">&para;</a></h3>
+<p>La modelación hidrodinámica se implementa bajo un enfoque bidimensional, considerando la necesidad de una representación precisa de la dinámica del flujo. Bajo este enfoque, se resuelven las ecuaciones de aguas poco profundas (<em>Shallow-Water Equations</em>, SWE) (Vreugdenhil, 2013), adecuadas para la descripción del movimiento de fluidos poco profundos.</p>
+<p>El modelo SWE resuelve las ecuaciones de conservación de volumen y momento, además de incluir aceleración temporal y espacial.</p>
+<p><strong>Conservación de volumen:</strong></p>
+<div class="arithmatex">\[\frac{\partial h}{\partial t} + \frac{\partial (hu)}{\partial x} + \frac{\partial (hv)}{\partial y} = S_v\]</div>
+<p><strong>Conservación de momento en X:</strong></p>
+<div class="arithmatex">\[\frac{\partial (hu)}{\partial t} + \frac{\partial}{\partial x}\left(hu^2 + \frac{gh^2}{2}\right) + \frac{\partial (huv)}{\partial y} = -gh\frac{\partial z}{\partial x} - \frac{\tau_x}{\rho}\]</div>
+<p><strong>Conservación de momento en Y:</strong></p>
+<div class="arithmatex">\[\frac{\partial (hv)}{\partial t} + \frac{\partial (huv)}{\partial x} + \frac{\partial}{\partial y}\left(hv^2 + \frac{gh^2}{2}\right) = -gh\frac{\partial z}{\partial y} - \frac{\tau_y}{\rho}\]</div>
+<p>Donde:</p>
+<table>
+<thead>
+<tr>
+<th>Símbolo</th>
+<th>Descripción</th>
+<th>Unidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\eta = z + h\)</span></td>
+<td>Elevación de la superficie del flujo</td>
+<td>m</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(t\)</span></td>
+<td>Tiempo</td>
+<td>s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(h\)</span></td>
+<td>Profundidad de flujo (calado)</td>
+<td>m</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(u, v\)</span></td>
+<td>Componentes de velocidad en X e Y</td>
+<td>m/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(S_v\)</span></td>
+<td>Término fuente o sumidero (lluvia, infiltración)</td>
+<td>m/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(g\)</span></td>
+<td>Aceleración gravitacional (9.81)</td>
+<td>m/s²</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\nu_t\)</span></td>
+<td>Viscosidad turbulenta de remolino</td>
+<td>m²/s</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\tau\)</span></td>
+<td>Estrés basal total</td>
+<td>N/m²</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\rho\)</span></td>
+<td>Densidad de la mezcla agua-sólido</td>
+<td>kg/m³</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(R\)</span></td>
+<td>Radio hidráulico</td>
+<td>m</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(S_f\)</span></td>
+<td>Pendiente de la superficie de flujo</td>
+<td>—</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\theta\)</span></td>
+<td>Ángulo de inclinación del vector de velocidad</td>
+<td>rad</td>
+</tr>
+</tbody>
+</table>
+<p>En SynxFlow (Xia et al., 2017), las ecuaciones SWE se resuelven con algoritmos eficientes y robustos con métodos de captura de choques de tipo Godunov (Toro, 2001). El <strong>solucionador de Riemann HLLC</strong> (<em>Harten-Lax-van Leer-Contact</em>) garantiza la captura correcta de discontinuidades hidráulicas (frentes de onda, resaltos) que ocurren en eventos extremos con múltiples hidrógrafos de entrada y confluencias. La integración temporal utiliza el esquema de Euler explícito con control adaptativo del paso de tiempo mediante la condición CFL (<em>Courant-Friedrichs-Lewy</em>).</p>
+<h3 id="coeficiente-de-rugosidad-de-manning">Coeficiente de rugosidad de Manning<a class="headerlink" href="#coeficiente-de-rugosidad-de-manning" title="Permanent link">&para;</a></h3>
+<p>La resistencia al flujo se parametriza mediante el coeficiente de rugosidad de Manning <span class="arithmatex">\(n\)</span> [m⁻¹/³·s], asignado espacialmente, para el caso del presente manual, según la clasificación de cobertura de suelo ESA WorldCover v200 (10 m, remuestreada a 5 m). Los valores utilizados en la simulación del evento Yaku 2023 (cuenca del río Rímac) son:</p>
+<table>
+<thead>
+<tr>
+<th>Clase ESA</th>
+<th>Cobertura</th>
+<th>Manning <span class="arithmatex">\(n\)</span> [m⁻¹/³·s]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Tree cover (bosque)</td>
+<td>0.100</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Shrubland (matorral)</td>
+<td>0.050</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Grassland (pastizal)</td>
+<td>0.040</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Cropland (cultivos)</td>
+<td>0.030</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Built-up (zona urbana)</td>
+<td>0.020</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Bare/sparse (suelo desnudo / roca)</td>
+<td>0.030</td>
+</tr>
+<tr>
+<td>70</td>
+<td>Snow and ice</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Water bodies (cuerpos de agua)</td>
+<td>0.030</td>
+</tr>
+<tr>
+<td>90</td>
+<td>Herbaceous wetland (humedal)</td>
+<td>0.040</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Moss and lichen</td>
+<td>0.010</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Default (clases no asignadas)</td>
+<td>0.035</td>
+</tr>
+</tbody>
+</table>
+<p>Los valores se asignan al modelo mediante <code>set_grid_parameter</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">case_input</span><span class="o">.</span><span class="n">set_landcover</span><span class="p">(</span><span class="n">landcover</span><span class="p">)</span>
+<span class="n">case_input</span><span class="o">.</span><span class="n">set_grid_parameter</span><span class="p">(</span><span class="n">manning</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;param_value&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span>
+    <span class="s1">&#39;land_value&#39;</span><span class="p">:</span>    <span class="p">[</span>  <span class="mi">10</span><span class="p">,</span>   <span class="mi">20</span><span class="p">,</span>   <span class="mi">30</span><span class="p">,</span>   <span class="mi">40</span><span class="p">,</span>   <span class="mi">50</span><span class="p">,</span>   <span class="mi">60</span><span class="p">,</span>  <span class="mi">70</span><span class="p">,</span>   <span class="mi">80</span><span class="p">,</span>   <span class="mi">90</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+    <span class="s1">&#39;default_value&#39;</span><span class="p">:</span> <span class="mf">0.035</span><span class="p">})</span>
+</code></pre></div>
+<h2 id="metodologia">Metodología<a class="headerlink" href="#metodologia" title="Permanent link">&para;</a></h2>
+<h3 id="enfoque-de-modelamiento">Enfoque de modelamiento<a class="headerlink" href="#enfoque-de-modelamiento" title="Permanent link">&para;</a></h3>
+<p>SynxFlow implementa un enfoque de modelamiento bidimensional en malla estructurada regular (<em>raster</em>), donde cada celda del DEM corresponde a una celda computacional. El modelo resuelve las SWE en cada celda activa del dominio en cada paso de tiempo, calculando los flujos interceldas mediante el solucionador de Riemann HLLC.</p>
+<p>Los módulos disponibles son:</p>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Función Python</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inundación (<em>flood</em>)</td>
+<td><code>flood.run()</code></td>
+<td>SWE + lluvia + infiltración GA</td>
+</tr>
+<tr>
+<td>Flujo de detritos (<em>debris</em>)</td>
+<td><code>debris.run()</code></td>
+<td>SWE + Coulomb + erosión <em>+ infiltración GA</em>*</td>
+</tr>
+<tr>
+<td>Deslizamiento (<em>landslide</em>)</td>
+<td><code>landslide.run()</code></td>
+<td>Movimiento de masa granular</td>
+</tr>
+</tbody>
+</table>
+<p>* El modulo de infiltración GA fue implementado al solver de <em>debris</em> como parte de la implementación del SAT.</p>
+<h3 id="dominio-del-modelo-y-mallado">Dominio del modelo y mallado<a class="headerlink" href="#dominio-del-modelo-y-mallado" title="Permanent link">&para;</a></h3>
+<p>El dominio de simulación se define a partir de un Modelo Digital de Elevación (DEM) en formato GeoTIFF o ASC. SynxFlow utiliza directamente la resolución y extensión del DEM como grilla computacional.</p>
+<p><strong>Consideraciones para el mallado:</strong></p>
+<ul>
+<li><strong>Resolución</strong>: determina el tamaño de las celdas y el costo computacional. A 5 m de resolución, la cuenca del Rímac (Chosica) genera ~8.2 millones de celdas activas.</li>
+<li><strong>Celdas NODATA</strong>: las celdas fuera de la cuenca se excluyen automáticamente del cómputo.</li>
+<li><strong>DEM preprocesado</strong>: se recomienda rellenar depresiones (<em>pit filling</em>) y suavizar artefactos antes de la simulación para evitar inestabilidades numéricas.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">synxflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">IO</span>
+
+<span class="n">DEM</span> <span class="o">=</span> <span class="n">IO</span><span class="o">.</span><span class="n">Raster</span><span class="p">(</span><span class="s1">&#39;DEM_5m_filled.tif&#39;</span><span class="p">)</span>
+<span class="n">case_input</span> <span class="o">=</span> <span class="n">IO</span><span class="o">.</span><span class="n">InputModel</span><span class="p">(</span><span class="n">DEM</span><span class="p">,</span> <span class="n">num_of_sections</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">case_folder</span><span class="o">=</span><span class="s1">&#39;/scratch/.../caso/&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="parametrizacion-de-los-modelos">Parametrización de los modelos<a class="headerlink" href="#parametrizacion-de-los-modelos" title="Permanent link">&para;</a></h3>
+<p>Los modelos requieren los siguientes datos de entrada:</p>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Formato</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEM</td>
+<td>GeoTIFF / ASC</td>
+<td>Modelo Digital de Elevación preprocesado</td>
+</tr>
+<tr>
+<td>Cobertura de suelo</td>
+<td>GeoTIFF</td>
+<td>Clasificación para Manning e infiltración</td>
+</tr>
+<tr>
+<td>Máscara de lluvia</td>
+<td>GeoTIFF</td>
+<td>Extensión espacial de la lluvia</td>
+</tr>
+<tr>
+<td>Serie temporal de lluvia</td>
+<td>CSV</td>
+<td>Intensidad por zona [m/s] vs tiempo [s]</td>
+</tr>
+<tr>
+<td>Condiciones de contorno</td>
+<td>Python dict</td>
+<td>Hidrógramas de entrada y salida</td>
+</tr>
+<tr>
+<td>Parámetros de infiltración</td>
+<td>numpy array</td>
+<td>Green-Ampt por celda</td>
+</tr>
+<tr>
+<td>Parámetros de detritos</td>
+<td>numpy array</td>
+<td>Fricción y profundidad erosionable</td>
+</tr>
+</tbody>
+</table>
+<h2 id="caso-de-aplicacion-evento-yaku-2023-cuenca-del-rio-rimac">Caso de aplicación: evento Yaku 2023 — cuenca del río Rímac<a class="headerlink" href="#caso-de-aplicacion-evento-yaku-2023-cuenca-del-rio-rimac" title="Permanent link">&para;</a></h2>
+<p>El módulo de flujo de detritos (<em>debris</em>) fue aplicado a la cuenca media-baja del río Rímac (Chosica, Lima) para modelar el evento Yaku ocurrido entre el 9 y 16 de marzo de 2023. Este evento produjo flujos de detritos e inundaciones simultáneos en múltiples quebradas tributarias (Huascarán, Cusipata, Los Cóndores), con pérdidas materiales severas en la infraestructura vial y residencial de Chosica.</p>
+<p>La simulación se configuró con:</p>
+<ul>
+<li><strong>DEM</strong>: SPOT-6 a 5 m de resolución (EPSG:32718), relleno de depresiones previo.</li>
+<li><strong>Dominio</strong>: ~17.5 millones de celdas totales, ~8.2 millones activas (47%).</li>
+<li><strong>Lluvia</strong>: pronóstico WRF a 1 km, desacumulado y reproyectado desde EPSG:4326.</li>
+<li><strong>Duración</strong>: 192 horas (9 días), salida horaria.</li>
+<li><strong>Condición de borde</strong>: hidrógrafo aguas arriba en el río Rímac + hidrógramas de lluvia en quebradas.</li>
+</ul>
+<p>La simulación se utilizó como back-analysis (retroanálisis) para la calibración y validación del SAT, comparando la profundidad simulada con registros en gauges virtuales ubicados en las quebradas tributarias y en el cauce principal.</p>
+<h2 id="sensibilidad-parametrica-del-modulo-green-ampt">Sensibilidad paramétrica del módulo Green-Ampt<a class="headerlink" href="#sensibilidad-parametrica-del-modulo-green-ampt" title="Permanent link">&para;</a></h2>
+<p>La cuenca alta del Rímac presenta predominio de suelo desnudo sobre roca (clase ESA 60, &gt;60% del área sobre 2000 m.s.n.m.), con alta susceptibilidad a la erosión y generación rápida de escorrentía. El análisis de sensibilidad OAT (<em>One-At-a-Time</em>) sobre la conductividad hidráulica saturada <span class="arithmatex">\(K_s\)</span> de la clase 60 mostró que:</p>
+<ul>
+<li>La variación de <span class="arithmatex">\(K_s\)</span> entre ×0.05 y ×1.00 (respecto a Rawls et al., 1983) produce ~4% de variación en <span class="arithmatex">\(h_{max}\)</span> en el canal principal del Rímac.</li>
+<li>La respuesta hidrométrica está dominada por la condición de borde aguas arriba, no por la infiltración en el tramo bajo.</li>
+<li>Para cuencas andinas semi-áridas se recomienda aplicar factores de reducción de <span class="arithmatex">\(K_s\)</span> entre 0.10 y 0.30 respecto a Rawls, para representar el sellamiento superficial y la hidrofobicidad en suelos secos.</li>
+</ul>
+<h2 id="glosario-de-terminos">Glosario de términos<a class="headerlink" href="#glosario-de-terminos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SWE</strong></td>
+<td><em>Shallow Water Equations</em> — ecuaciones de aguas poco profundas 2D</td>
+</tr>
+<tr>
+<td><strong>DEM</strong></td>
+<td><em>Digital Elevation Model</em> — Modelo Digital de Elevación</td>
+</tr>
+<tr>
+<td><strong>GPU</strong></td>
+<td><em>Graphics Processing Unit</em> — unidad de procesamiento gráfico para cómputo paralelo</td>
+</tr>
+<tr>
+<td><strong>HPC</strong></td>
+<td><em>High-Performance Computing</em> — computación de alto rendimiento (clúster)</td>
+</tr>
+<tr>
+<td><strong>CFL</strong></td>
+<td>Condición de estabilidad de Courant-Friedrichs-Lewy</td>
+</tr>
+<tr>
+<td><strong>HLLC</strong></td>
+<td>Solucionador de Riemann Harten-Lax-van Leer-Contact</td>
+</tr>
+<tr>
+<td><strong>Green-Ampt</strong></td>
+<td>Modelo de infiltración con frente de humectación tipo pistón</td>
+</tr>
+<tr>
+<td><strong>Manning</strong></td>
+<td>Coeficiente de rugosidad hidráulica empírico</td>
+</tr>
+<tr>
+<td><strong>Solver</strong></td>
+<td>Módulo de cómputo en GPU que resuelve las SWE</td>
+</tr>
+<tr>
+<td><strong>Gauge</strong></td>
+<td>Punto virtual de medición dentro del dominio de simulación</td>
+</tr>
+<tr>
+<td><strong>Backup</strong></td>
+<td>Archivo de respaldo del estado del modelo en un instante dado</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.integrate", "content.code.copy", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

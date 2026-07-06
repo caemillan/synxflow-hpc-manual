@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/cap1_synxflow/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap1_synxflow/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap1_synxflow/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/cap2_configuracion_hpc/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap2_configuracion_hpc/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap2_configuracion_hpc/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/cap3_flujo_detritos/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap3_flujo_detritos/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap3_flujo_detritos/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/cap4_green_ampt/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap4_green_ampt/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap4_green_ampt/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/referencias/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/referencias/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/referencias/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/en/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/en/cap1_synxflow/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap1_synxflow/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap1_synxflow/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/en/cap2_configuracion_hpc/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap2_configuracion_hpc/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap2_configuracion_hpc/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/en/cap3_flujo_detritos/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap3_flujo_detritos/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap3_flujo_detritos/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/en/cap4_green_ampt/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/cap4_green_ampt/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/cap4_green_ampt/"/>
+    </url>
+    <url>
+        <loc>https://caemillan.github.io/synxflow-hpc-manual/en/referencias/</loc>
+        <lastmod>2026-07-06</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://caemillan.github.io/synxflow-hpc-manual/en/referencias/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://caemillan.github.io/synxflow-hpc-manual/referencias/"/>
+    </url>
+</urlset>
